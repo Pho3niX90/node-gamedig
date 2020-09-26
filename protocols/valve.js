@@ -28,10 +28,10 @@ class Valve extends Core {
     async run(state) {
         if (!this.options.port) this.options.port = 27015;
         await this.queryInfo(state);
-        await this.queryChallenge();
-        await this.queryPlayers(state);
+        // await this.queryChallenge();
+        //await this.queryPlayers(state);
         await this.queryRules(state);
-        await this.cleanup(state);
+        // await this.cleanup(state);
     }
 
     async queryInfo(state) {
