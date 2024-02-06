@@ -1,0 +1,37 @@
+
+name: Node
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - "**.js" # Any JS file
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/node.yml" # This action
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - "**.js" # Any JS file
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/node.yml" # This action
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.17, 16.x, 18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
